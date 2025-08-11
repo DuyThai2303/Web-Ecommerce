@@ -1,0 +1,135 @@
+@use '../../styles/variables' as *;
+.container {
+
+  /*BANNER*/
+  .banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #e1fcfc;
+    padding: 2rem 4rem;
+    height: 600px;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .banner-content {
+      max-width: 40%;
+      @media (max-width: 768px) {
+        max-width: 100%;
+      }
+
+      .subtitle {
+        font-size: 2rem;
+        letter-spacing: 1px;
+        color: $secondary-color;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+
+      h2 {
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 1.5rem;
+        color: #222;
+      }
+
+      button {
+        padding: 1rem 1.8rem;
+        border: 1px solid #222;
+        background: transparent;
+        font-size: 1.5rem;
+        cursor: pointer;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: #222;
+          color: #fff;
+        }
+      }
+    }
+
+    .banner-image img {
+      max-width: 1000px;
+      height: auto;
+    }
+  }
+
+
+  /*FURNITURE*/
+  .furniture{
+    display: flex;
+    padding: 20px;
+    margin-top: 100px;
+    flex-wrap: wrap;
+    gap: 30px;
+
+    .furniture-item{
+      position: relative;
+      flex: 1;
+      overflow: hidden;
+
+
+      img {
+        width: 100%;
+        height: 600px;
+        display: block;
+        transition: transform 0.4s ease;
+        border-radius: 5px;
+
+        &:hover{
+          transform: scale(1.05)
+        }
+      }
+
+      .overlay{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        top: 40%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+
+        p{
+          color: $secondary-color;
+          font-size: 30px;
+
+        }
+
+        h2{
+          color: #fff;
+          font-size: 40px;
+          font-weight: normal;
+        }
+
+        button{
+
+          padding: 20px 40px;
+          background-color: $secondary-color;
+          border-radius: 30px;
+          font-size: 20px;
+          transition: transform .3s ease-in-out;
+          color: #fff;
+          font-weight: bold;
+
+          &:hover{
+            transform: scale(1.06);
+          }
+
+        }
+
+      }
+
+      
+    }
+
+  
+  }
+}
