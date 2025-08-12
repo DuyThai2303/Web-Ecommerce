@@ -1,5 +1,6 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import  {useRef} from "react";
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -11,6 +12,10 @@ import { MdOutlineLocalShipping } from "react-icons/md";
 import { Ri24HoursFill } from "react-icons/ri";
 import { IoLogoUsd } from "react-icons/io5";
 import { CiDiscount1 } from "react-icons/ci";
+import { IoMdHeartEmpty } from "react-icons/io";
+import { IoCartOutline } from "react-icons/io5";
+
+
 
 import imgSummer from '../../assets/plant-table-chair-minimalist-3d-rendering-a-single-sofa-and-green-stand-against-textured-empty-wall-with-side_9789192-Photoroom.png';
 
@@ -66,7 +71,7 @@ const productSales = [
   newPrice: "120.47 USD"  
   },
   {
-  img: "https://bizweb.dktcdn.net/thumb/1024x1024/100/429/325/files/53.png?v=1651111707482",
+  img: "https://i0.wp.com/vitefama.com.ec/wp-content/uploads/2023/04/Click-Clack-6-2.jpg?fit=1200%2C1200&ssl=1",
   name: "cheap sofa bench GSB-01",
   oldPrice: "240.94 USD",
   newPrice: "120.47 USD"  
@@ -83,9 +88,37 @@ const productSales = [
   oldPrice: "240.94 USD",
   newPrice: "120.47 USD"  
   }
+];
 
-]
+const TypeProduct = [
+  {
+    img: "https://dunlopilloshop.com/upload/images/o1cn01ev7z5n29xseilm42i_-2044238135_result.jpg",
+    name: "BED"
+  },
+  {
+    img: "https://bachma.vn/wp-content/uploads/2024/01/ghe-sofa-goc-3.jpg",
+    name: "SOFA"
+  },
+  {
+    img: "https://api.togihome.vn/storage/images/originals/z5590085027941-0d2eadef89a0a77c027c614563fca7ac-wa9ngkpsuptnxfs.webp",
+    name: "DESK"
+  },
+  {
+    img: "https://hoaphatsaigon.com/upload/sanpham/large/2256-tu-ao-ta01-1.jpg",
+    name: "DINING CHAIR"
+  },
+  {
+    img: "https://product.hstatic.net/200000530891/product/7639a64f9013534d0a02_9f037e2ee3374e41a100147e4e328c0b_master.jpg",
+    name: "CABINET"
+  }
+];
+
+
+
 function Home() {
+  const swiperRef = useRef(null);
+
+
   return (
     <div className="container">
       <Header />
@@ -138,12 +171,17 @@ function Home() {
           <div className="line"></div>
         </div>
 
-        <div className="product-sale-slider">
+
+        <div 
+        className="product-sale-slider"
+        onMouseEnter={() => swiperRef.current?.autoplay.stop()}
+        onMouseLeave={() => swiperRef.current?.autoplay.start()}
+        >
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
             navigation
             pagination={{ clickable: true }}
-            autoplay={{ delay: 2000 }}
+            autoplay={{ delay: 2000, disableOnInteraction: false }}
             loop={true}
             spaceBetween={20}
             breakpoints={{
@@ -152,6 +190,8 @@ function Home() {
               1024: { slidesPerView: 3 },
               1280: { slidesPerView: 4 }
             }}
+
+            onSwiper={(swiper) => (swiperRef.current = swiper)}
           >
             {productSales.map((item, index) => (
               <SwiperSlide key={`${item.name}-${index}`}>
@@ -160,11 +200,43 @@ function Home() {
                   <h3>{item.name}</h3>
                   <p className="old-price">{item.oldPrice}</p>
                   <p className="new-price">{item.newPrice}</p>
+                  <div className='section'>
+                    <div className='section-favourite'>
+                      <IoMdHeartEmpty/>
+                    </div>
+                    <div className='section-cart'>
+                      <IoCartOutline/> 
+                    </div>
+                  <button>More</button>
+                  </div>
+                  <div className='sale'>50%</div>
                 </div>
               </SwiperSlide>
             ))}
           </Swiper>
         </div>
+      </div>
+
+      {/*PRODUCT-TYPE*/}
+      <div className='product-grid'>
+        <div className='left-large'>
+          <div className='img-wrapper'>
+            <img src={TypeProduct[0].img} alt={TypeProduct.name}/>
+            <span>{TypeProduct[0].name}</span>
+          </div>
+        </div>
+
+        <div className='right-small'>
+          {TypeProduct.slice(1).map((item, index) => (
+            <div className='img-wrapper' key = {index}>
+              <img src={item.img} alt={item.name}/>
+              <span>{item.name}</span>
+            </div>
+          ))}
+
+        </div>
+        
+        
       </div>
     </div>
   );
