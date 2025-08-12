@@ -9,9 +9,9 @@
     display: flex;
     justify-content: flex-end;
     padding: 0.5rem 2rem;
-    background-color: #f8f8f8;
+    background-color: $secondary-color;
     font-size: 0.9rem;
-    color: #333;
+    color: $primary-color;
 
 
     span{
@@ -31,6 +31,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
+    background-color: #f8f8f8;
+
 
     .logo {
       font-size: 2rem;
@@ -119,7 +121,6 @@
         flex-wrap: wrap;
         gap: 1rem;
       }
-
       .nav-actions {
         order: 2;
         flex: 1;
