@@ -1,10 +1,13 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import  {useRef} from "react";
+import  {useEffect, useRef} from "react";
+import {useState} from "react"
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 import Header from '../../components/Header/Header';
 import './Home.scss';
@@ -15,24 +18,53 @@ import { CiDiscount1 } from "react-icons/ci";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoCartOutline } from "react-icons/io5";
 
-
-
 import imgSummer from '../../assets/plant-table-chair-minimalist-3d-rendering-a-single-sofa-and-green-stand-against-textured-empty-wall-with-side_9789192-Photoroom.png';
+import ProductHot from '../../datas/ProductHot';
 
-const furnitureItems = [
+
+
+const bestSellingProduct = [
   {
-    img: "https://www.lanha.vn/wp-content/uploads/2024/09/thiet-ke-phong-an-2.jpg.webp",
-    discount: "UP TO 40% OFF",
-    title: "DINING FURNITURE",
-    button: "SHOP NOW"
+    img: "https://product.hstatic.net/200000295856/product/dp0macf_2__44ceddf6632e4ae29b71e7567dc1276f_large.jpg",
+    name: "Plastic hairs",
+    price: "35.99 $"
   },
   {
-    img: "https://www.lanha.vn/wp-content/uploads/2023/07/thiet-ke-noi-that-phong-ngu-bs5.jpeg.webp",
-    discount: "UP TO 40% OFF",
-    title: "BED FURNITURE",
-    button: "SHOP NOW"
+    img: "https://bizweb.dktcdn.net/thumb/1024x1024/100/438/538/products/z2930659034046-f683311fd34e840a009cf533c1f796ae.jpg?v=1686799529457",
+    name: "Classic wooden chair",
+    price: "55.99 $"
+  },
+  {
+    img: "https://bachma.vn/wp-content/uploads/2020/09/ban-eames-tron.jpg",
+    name: "Round table dining ",
+    price: "70.00 $"
+
+  },
+  {
+    img: "https://bizweb.dktcdn.net/thumb/1024x1024/100/429/325/products/o1cn01ikmtx81ul307i6dvj-949132500-0-cib.jpg?v=1710296273833",
+    name: "Single sofa",
+    price: "120.99 $"
+  }
+
+]
+const furnitureItems = [
+  {
+    img: "https://cdn.shopify.com/s/files/1/0489/1171/2423/files/vt_interior_elements_home1_banner_1.jpg?v=1726407839",
+    preface: "Quick parcel delivery, from $25",
+    discount: "Up to 60% off Interior Home Decor",
+    intro: "Class aptent taciti sociosqu ad litora",
+    button: "Shop Now"
+  },
+  {
+    img: "https://images.unsplash.com/photo-1511389026070-a14ae610a1be?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    preface: "Quick parcel delivery, from $25",
+    discount: "Up to 60% sale off Pendent Lamp",
+    intro: "Class aptent taciti sociosqu ad litora torquent",
+    button: "Shop Now"
   }
 ];
+
+
 
 const serviceFeatures = [
   {
@@ -114,18 +146,42 @@ const TypeProduct = [
 ];
 
 
+const categories = [
+  { id: "PlasticChair", name: "Plastic Chair" },
+  { id: "OfficeChair", name: "Office Chair" }
+];
+
+
+
+
+
 
 function Home() {
-  const swiperRef = useRef(null);
 
+  useEffect(() => {
+        AOS.init({
+          duration: 1000,
+          offset: 0,
+        });
+        
+      }, []);
+
+  const swiperRef = useRef(null);
+  const [activeCategory, setActiveCategory] = useState("PlasticChair");
+
+  // loc san pham theo dang muc
+  const filteredProducts = ProductHot.filter(
+    (item) => item.category == activeCategory
+  ); 
 
   return (
     <div className="container">
       <Header />
 
+
       {/* Banner */}
       <div className="banner">
-        <div className="banner-content">
+        <div  className="banner-content">
           <p className="subtitle">UP TO 40% OFF</p>
           <h2>Summer Collection</h2>
           <button>Shop Now</button>
@@ -135,19 +191,42 @@ function Home() {
         </div>
       </div>
 
+      {/*BEST-SELLING-PRODUCT*/}
+      <div data-aos="zoom-out-up" className = "best-selling-product">
+         <div  className="title">
+            <h2>Best Seller Products</h2>
+            <h1></h1>
+            <p>Top selling corner this week</p>
+        </div>
+        <div data-aos="zoom-out-up" className = "product-list">
+          {bestSellingProduct.map((item, index) => (
+            <div className = "best-selling-card" key = {index}>
+              <img src={item.img} alt={item.name} />
+              <p>{item.name}</p>
+              <span>{item.price}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      
+
+
       {/* Furniture */}
       <div className="furniture">
         {furnitureItems.map((item, index) => (
           <div className="furniture-item" key={index}>
-            <img src={item.img} alt={item.title} />
-            <div className="overlay">
+            <img data-aos="zoom-out-up" src={item.img} alt={item.title} />
+            <div data-aos="zoom-out-up" className="overlay">
+              <span>{item.preface}</span>
               <p>{item.discount}</p>
-              <h2>{item.title}</h2>
-              <button>{item.button}</button>
+              <h4>{item.intro}</h4>
+              <button>{item.button} </button>
             </div>
           </div>
         ))}
       </div>
+
+      
 
       {/* Services */}
       <div className="service-container">
@@ -160,6 +239,7 @@ function Home() {
         ))}
       </div>
 
+
       {/* Product Sale */}
       <div className="product-sale">
         <div className="title-sale">
@@ -170,8 +250,6 @@ function Home() {
           <h2>Up to 50% Off Selected Items</h2>
           <div className="line"></div>
         </div>
-
-
         <div 
         className="product-sale-slider"
         onMouseEnter={() => swiperRef.current?.autoplay.stop()}
@@ -217,6 +295,7 @@ function Home() {
         </div>
       </div>
 
+
       {/*PRODUCT-TYPE*/}
       <div className='product-grid'>
         <div className='left-large'>
@@ -225,7 +304,6 @@ function Home() {
             <span>{TypeProduct[0].name}</span>
           </div>
         </div>
-
         <div className='right-small'>
           {TypeProduct.slice(1).map((item, index) => (
             <div className='img-wrapper' key = {index}>
@@ -233,10 +311,36 @@ function Home() {
               <span>{item.name}</span>
             </div>
           ))}
-
         </div>
+      </div>
+
+
+      {/*HOT-PRODUCT*/}
+      <div className='hot-products'>
+        <h2 className='title'>Hot Product <h1></h1></h2>
         
-        
+
+        <div className='tabs'>
+          {categories.map((cat) => (
+            <span 
+            key = {cat.id}
+            className={activeCategory === cat.id ? "active" : ""}
+            onClick={() => setActiveCategory(cat.id)}
+            >
+              {cat.name}
+            </span>
+          ))}
+        </div>
+
+        <div className='product-list'>
+          {filteredProducts.map((item, index) => (
+            <div className='product-card' key = {index}>
+                <img className = "hot-img" src={item.img} alt={item.name} />
+                <p>{item.name}</p>
+                <span>{item.price}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
