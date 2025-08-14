@@ -20,7 +20,7 @@ import { IoCartOutline } from "react-icons/io5";
 
 import imgSummer from '../../assets/plant-table-chair-minimalist-3d-rendering-a-single-sofa-and-green-stand-against-textured-empty-wall-with-side_9789192-Photoroom.png';
 import ProductHot from '../../datas/ProductHot';
-
+import PromoImg from '../../assets/ghế-ventura-2-Photoroom.png';
 
 
 const bestSellingProduct = [
@@ -124,7 +124,7 @@ const productSales = [
 
 const TypeProduct = [
   {
-    img: "https://dunlopilloshop.com/upload/images/o1cn01ev7z5n29xseilm42i_-2044238135_result.jpg",
+    img: "https://erado.vn/img/p/giuong-ngu-chan-cao-khong-dau-ma-134-p784.jpg",
     name: "BED"
   },
   {
@@ -152,10 +152,6 @@ const categories = [
 ];
 
 
-
-
-
-
 function Home() {
 
   useEffect(() => {
@@ -163,7 +159,6 @@ function Home() {
           duration: 1000,
           offset: 0,
         });
-        
       }, []);
 
   const swiperRef = useRef(null);
@@ -178,9 +173,8 @@ function Home() {
     <div className="container">
       <Header />
 
-
       {/* Banner */}
-      <div className="banner">
+      <div data-aos="fade-up" data-aos-anchor-placement="bottom-bottom" className="banner">
         <div  className="banner-content">
           <p className="subtitle">UP TO 40% OFF</p>
           <h2>Summer Collection</h2>
@@ -192,13 +186,13 @@ function Home() {
       </div>
 
       {/*BEST-SELLING-PRODUCT*/}
-      <div data-aos="zoom-out-up" className = "best-selling-product">
+      <div data-aos="fade-up" data-aos-anchor-placement="bottom-bottom" className = "best-selling-product">
          <div  className="title">
             <h2>Best Seller Products</h2>
             <h1></h1>
             <p>Top selling corner this week</p>
         </div>
-        <div data-aos="zoom-out-up" className = "product-list">
+        <div data-aos="fade-up" data-aos-anchor-placement="bottom-bottom" className = "product-list">
           {bestSellingProduct.map((item, index) => (
             <div className = "best-selling-card" key = {index}>
               <img src={item.img} alt={item.name} />
@@ -214,9 +208,9 @@ function Home() {
       {/* Furniture */}
       <div className="furniture">
         {furnitureItems.map((item, index) => (
-          <div className="furniture-item" key={index}>
-            <img data-aos="zoom-out-up" src={item.img} alt={item.title} />
-            <div data-aos="zoom-out-up" className="overlay">
+          <div data-aos="fade-up" data-aos-anchor-placement="top-bottom" className="furniture-item" key={index}>
+            <img src={item.img} alt={item.title} />
+            <div data-aos="fade-up" data-aos-anchor-placement="bottom-bottom" className="overlay">
               <span>{item.preface}</span>
               <p>{item.discount}</p>
               <h4>{item.intro}</h4>
@@ -229,7 +223,7 @@ function Home() {
       
 
       {/* Services */}
-      <div className="service-container">
+      <div data-aos="fade-up" data-aos-anchor-placement="bottom-bottom" className="service-container">
         {serviceFeatures.map((item, index) => (
           <div className="service" key={index}>
             <span>{item.icon}</span>
@@ -241,7 +235,7 @@ function Home() {
 
 
       {/* Product Sale */}
-      <div className="product-sale">
+      <div data-aos="fade-up" data-aos-anchor-placement="bottom-bottom" className="product-sale">
         <div className="title-sale">
           <div className="title">
             <p>Mega Sale</p>
@@ -296,23 +290,19 @@ function Home() {
       </div>
 
 
-      {/*PRODUCT-TYPE*/}
-      <div className='product-grid'>
-        <div className='left-large'>
-          <div className='img-wrapper'>
-            <img src={TypeProduct[0].img} alt={TypeProduct.name}/>
-            <span>{TypeProduct[0].name}</span>
+      {/*PROMO-BANNER*/}
+      <div className = "promo-banner">
+        <div className = "promo-banner-img">
+          <img src={PromoImg} alt="" />
+        </div>
+
+        <div className = "promo-banner-content">
+            <p className="promo-banner-delivery">Quick parcel delivery, from $25</p>
+            <h2 className="promo-banner-title">Shop The New Brands Up to 40% off now.</h2>
+            <p className="promo-banner-subtitle">Class aptent taciti sociosqu ad litora torquent per</p>
           </div>
-        </div>
-        <div className='right-small'>
-          {TypeProduct.slice(1).map((item, index) => (
-            <div className='img-wrapper' key = {index}>
-              <img src={item.img} alt={item.name}/>
-              <span>{item.name}</span>
-            </div>
-          ))}
-        </div>
       </div>
+      
 
 
       {/*HOT-PRODUCT*/}
